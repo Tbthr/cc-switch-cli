@@ -1,0 +1,31 @@
+{
+  "name": "@thtmf/cc-switch-cli",
+  "version": "1.0.0",
+  "description": "CLI tool to manage Claude Code AI provider configurations",
+  "repository": "github:Tbthr/cc-switch-cli",
+  "main": "dist/main.js",
+  "bin": {
+    "ccs": "./dist/main.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/main.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.3",
+    "conf": "^15.1.0",
+    "inquirer": "^13.4.1"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.9",
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}
