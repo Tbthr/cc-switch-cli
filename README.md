@@ -2,10 +2,38 @@
 
 管理 Claude Code AI Provider 配置的 CLI 工具。
 
+## 为什么需要它？
+
+当你同时使用多个 AI Provider（如官方 Anthropic API、自建代理、第三方服务）时，每次切换需要手动编辑 `~/.claude/settings.json`，容易出错且繁琐。
+
+`ccs` 让你像管理 Git remote 一样管理 Provider：添加、切换、一键搞定。
+
+## 环境要求
+
+- Node.js >= 18
+- Claude Code 已安装并初始化（存在 `~/.claude/settings.json`）
+
 ## 安装
 
 ```bash
 npm install -g @thtmf/cc-switch-cli
+```
+
+## 快速上手
+
+```bash
+# 1. 添加 provider
+ccs add official --auth-token "sk-xxx" --base-url "https://api.anthropic.com"
+ccs add proxy --auth-token "sk-yyy" --base-url "https://my-proxy.com/anthropic"
+
+# 2. 切换 provider
+ccs switch proxy
+
+# 3. 查看当前配置
+ccs show
+
+# 4. 列出所有 provider（* 标记当前使用的）
+ccs list
 ```
 
 ## 命令
@@ -76,6 +104,8 @@ ccs remove <name>
 ccs switch <name>
 ```
 
+> 提示：使用 `ccs list` 查看可用的 provider 名称。
+
 ### show
 显示当前 provider 的配置。
 
@@ -115,10 +145,19 @@ ccs update <name> [options]
 ccs update my-provider --auth-token "new-token" --model "updated-model-v2"
 ```
 
+## 全局选项
+
+| 选项 | 说明 |
+|------|------|
+| `--version` | 显示版本号 |
+| `--help` | 显示帮助信息 |
+
 ## 配置文件
 
 - Provider 配置：`~/.config/cc-switch-cli/config.json`
 - Claude Code 设置：`~/.claude/settings.json`
+
+可通过 `CLAUDE_SETTINGS_PATH` 环境变量自定义 Claude Code 设置文件路径。
 
 ## Provider 字段
 
@@ -134,4 +173,16 @@ ccs update my-provider --auth-token "new-token" --model "updated-model-v2"
 | `ANTHROPIC_DEFAULT_SONNET_MODEL` | Sonnet 模型（可选） |
 | `ANTHROPIC_REASONING_MODEL` | 推理模型（可选） |
 
-其他配置（如 `CLAUDE_CODE_*`）在切换时会保留。
+其他配置在切换时会保留。
+
+## 卸载
+
+```bash
+npm uninstall -g @thtmf/cc-switch-cli
+# 可选：删除配置文件
+rm -rf ~/.config/cc-switch-cli
+```
+
+## License
+
+ISC
